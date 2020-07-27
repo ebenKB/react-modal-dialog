@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Modal from './components/modal/modal';
 
 function App() {
+  const [showModal, setShowModal] = useState(true)
+  const [isModalConfirmed, setIsModalConfirmed] = useState(false);
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  }
+
+  const handleConfirmModal = () => {
+    setIsModalConfirmed(true);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    {isModalConfirmed && (
+      <h3>The modal action has been confirmed</h3>
+    )}
+      {showModal && (
+        <Modal
+          handleCloseAction = {handleCloseModal}
+          handleConfirmAction={handleConfirmModal}
         >
-          Learn React
-        </a>
-      </header>
+        <p>If you continue this action, your password will change.</p>
+        </Modal>
+      )}
     </div>
   );
 }
